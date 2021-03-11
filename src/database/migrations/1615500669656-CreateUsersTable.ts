@@ -29,7 +29,7 @@ export class CreateUsersTable1615500669656 implements MigrationInterface {
                     type: 'varchar(11)',
                 },
                 {
-                    name: 'data-de-nascimento',
+                    name: 'data_de_nascimento',
                     type: 'date',
                 },
                 {
@@ -54,7 +54,7 @@ export class CreateUsersTable1615500669656 implements MigrationInterface {
                     isUnique: true
                 },
                 {
-                    name: 'ponto-de-referencia',
+                    name: 'ponto_de_referencia',
                     type: 'varchar',
                 },
                 {
