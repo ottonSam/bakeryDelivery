@@ -1,3 +1,3 @@
 import { createConnection} from 'typeorm';
 
-createConnection().then( () => console.log('🗃 Successfully connecter with DB'));
+createConnection().then( () => console.log('🗃 Successfully connected with DB'));
