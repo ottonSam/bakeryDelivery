@@ -29,6 +29,25 @@ class UserController{
 
     return res.json(user);
   }
+  async edit(req: Request, res: Response) {
+    const repository = getRepository(User);
+    try {
+    const user = await repository.findOne({where: {id: req.params.id}});
+    
+    if(!user) {
+      return res.sendStatus(401);
+    }
+
+    repository.merge(user, req.body);
+    
+    const results = await repository.save(user);
+    
+    return res.json(results);
+    } catch {
+      return res.sendStatus(401);
+    }
+    
+  }
 }
 
 export default new UserController();
