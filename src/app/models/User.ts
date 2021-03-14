@@ -39,6 +39,9 @@ class User {
   @Column()
   senha: string;
 
+  @Column()
+  is_root: number;
+
   @BeforeInsert()
   @BeforeUpdate()
   hashPassword() {
