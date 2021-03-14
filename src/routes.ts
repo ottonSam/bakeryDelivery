@@ -2,8 +2,11 @@ import { Router } from 'express';
 
 import UserController from './app/controllers/UserController';
 import ProductController from './app/controllers/ProductController';
+import RequestController from './app/controllers/RequestController';
+
 import AuthController from './app/controllers/AuthController';
 import IsRootController from './app/controllers/IsRootController';
+
 import authMiddleware from './app/middlewares/authMiddleware';
 import isRootMiddleware from './app/middlewares/isRootMiddleware';
 
@@ -20,5 +23,9 @@ router.get('/product', ProductController.index);
 router.post('/product', isRootMiddleware, ProductController.store);
 router.delete('/product/:id', isRootMiddleware, ProductController.delete);
 router.put('/product/:id', isRootMiddleware, ProductController.edit)
+
+router.post('/request', authMiddleware, RequestController.store);
+router.put('/request/:id', authMiddleware, RequestController.edit);
+router.delete('/request/:id', authMiddleware, RequestController.delete);
 
 export default router;
