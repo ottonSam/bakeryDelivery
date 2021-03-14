@@ -6,6 +6,9 @@
   </a>
 </p>
 
+<h2>You can access the api at the link below 👇</h2>
+<a>https://bakerydeliveryapi.herokuapp.com/</a>
+
 ## Install
 
 ```sh

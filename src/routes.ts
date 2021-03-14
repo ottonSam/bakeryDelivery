@@ -12,6 +12,10 @@ import isRootMiddleware from './app/middlewares/isRootMiddleware';
 
 const router = Router();
 
+router.get('/', (req, res) => {
+  return res.send("You are using an Api created by ottonSam")
+})
+
 router.post('/users', UserController.store);
 router.get('/users', authMiddleware, UserController.index);
 router.put('/users/:id', authMiddleware, UserController.edit)
