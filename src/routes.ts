@@ -28,4 +28,8 @@ router.post('/request', authMiddleware, RequestController.store);
 router.put('/request/:id', authMiddleware, RequestController.edit);
 router.delete('/request/:id', authMiddleware, RequestController.delete);
 
+router.get('/request', isRootMiddleware, RequestController.index);
+router.get('/request/day/:dia', isRootMiddleware, RequestController.indexDay);
+router.get('/request/id/:id', isRootMiddleware, RequestController.indexId);
+
 export default router;

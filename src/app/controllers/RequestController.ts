@@ -1,23 +1,35 @@
 import { Request, Response} from 'express';
 import { getRepository } from 'typeorm';
 
-import Product from '../models/Product';
 import Requeste from '../models/Request';
 import User from '../models/User';
 
-class ProductController{
+class RequestController{
+  async index(req: Request, res: Response) {
+    const repository = getRepository(Requeste);
+    const result = await repository.find();
+    return res.json(result);
+  }
+  async indexDay(req: Request, res: Response) {
+    const repository = getRepository(Requeste);
+    const result = await repository.find({ dia: req.params.dia});
+    return res.json(result);
+  }
+  async indexId(req: Request, res: Response) {
+    const repository = getRepository(Requeste);
+    try{
+      const result = await repository.findOne({ id: req.params.id});
+      return res.json(result);
+    } catch {
+      return res.sendStatus(404);
+    }
+  }
   async store(req: Request, res: Response) {
     const repository = getRepository(Requeste);
     const repositoryUser = getRepository(User);
-    const repositoryProduct = getRepository(Product);
+    
 
     const { produto, dia, user} = req.body;
-
-    const productExists = repositoryProduct.findOne({ id: produto});
-
-    if(!productExists) {
-      return res.sendStatus(409);
-    }
 
     const userExists = repositoryUser.findOne({ id: user});
 
@@ -52,15 +64,8 @@ class ProductController{
   async edit(req: Request, res: Response) {
     const repository = getRepository(Requeste);
     const repositoryUser = getRepository(User);
-    const repositoryProduct = getRepository(Product);
 
-    const { produto, dia, user} = req.body;
-
-    const productExists = repositoryProduct.findOne({ id: produto});
-
-    if(!productExists) {
-      return res.sendStatus(409);
-    }
+    const { user} = req.body;
 
     const userExists = repositoryUser.findOne({ id: user});
 
@@ -88,4 +93,4 @@ class ProductController{
   
 }
 
-export default new ProductController();
+export default new RequestController();
