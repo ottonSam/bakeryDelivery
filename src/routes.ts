@@ -36,4 +36,6 @@ router.get('/request', isRootMiddleware, RequestController.index);
 router.get('/request/day/:dia', isRootMiddleware, RequestController.indexDay);
 router.get('/request/id/:id', isRootMiddleware, RequestController.indexId);
 
+router.get('/request/user', authMiddleware, RequestController.indexUser);
+
 export default router;

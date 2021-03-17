@@ -15,6 +15,11 @@ class RequestController{
     const result = await repository.find({ dia: req.params.dia});
     return res.json(result);
   }
+  async indexUser(req: Request, res: Response) {
+    const repository = getRepository(Requeste);
+    const result = await repository.find({ user: req.userId});
+    return res.json(result);
+  }
   async indexId(req: Request, res: Response) {
     const repository = getRepository(Requeste);
     try{
