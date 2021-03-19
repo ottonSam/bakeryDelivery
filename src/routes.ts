@@ -31,8 +31,8 @@ router.put('/product/:id', isRootMiddleware, ProductController.edit)
 
 router.post('/request', authMiddleware, RequestController.store);
 router.post('/requestday', authMiddleware, RequestDayController.store);
-router.put('/request/:id', authMiddleware, RequestController.edit);
 router.delete('/request/:id', authMiddleware, RequestController.delete);
+router.delete('/request/day/:dia', authMiddleware, RequestController.deleteDay);
 router.delete('/requestday/:id', authMiddleware, RequestDayController.delete);
 
 router.get('/request/day/:dia', authMiddleware, RequestController.indexDay);

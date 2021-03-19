@@ -57,27 +57,18 @@ class RequestController{
       }
 
   }
-  async edit(req: Request, res: Response) {
+  async deleteDay(req: Request, res: Response) {
     const repository = getRepository(Requeste);
-
-    const { produto, quantidade } = req.body;
-
     try {
-      const request = await repository.findOne({where: {id: req.params.id}});
-      
-      if(!request) {
-        return res.sendStatus(401);
-      }
   
-      repository.merge(request, req.body);
+      repository.delete({dia: req.params.dia});
       
-      const results = await repository.save(request);
       
-      return res.json(results);
+      return res.json({"message": "pedido deletado com sucesso"});
       } catch {
         return res.sendStatus(401);
       }
-  
+
   }
   
 }
