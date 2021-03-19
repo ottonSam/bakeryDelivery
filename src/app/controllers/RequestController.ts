@@ -2,22 +2,13 @@ import { Request, Response} from 'express';
 import { getRepository } from 'typeorm';
 
 import Requeste from '../models/Request';
-import User from '../models/User';
+import RequestDay from '../models/RequestDay';
 
 class RequestController{
-  async index(req: Request, res: Response) {
-    const repository = getRepository(Requeste);
-    const result = await repository.find();
-    return res.json(result);
-  }
   async indexDay(req: Request, res: Response) {
     const repository = getRepository(Requeste);
-    const result = await repository.find({ dia: req.params.dia});
-    return res.json(result);
-  }
-  async indexUser(req: Request, res: Response) {
-    const repository = getRepository(Requeste);
-    const result = await repository.find({ user: req.userId});
+    // dia aq é o id em requests_day
+    const result = await repository.find({dia: req.params.dia});
     return res.json(result);
   }
   async indexId(req: Request, res: Response) {
@@ -31,18 +22,18 @@ class RequestController{
   }
   async store(req: Request, res: Response) {
     const repository = getRepository(Requeste);
-    const repositoryUser = getRepository(User);
+    const repositoryRequestDay = getRepository(RequestDay);
     
 
-    const { produto, dia, user} = req.body;
+    const { produto, dia, quantidade } = req.body;
 
-    const userExists = repositoryUser.findOne({ id: user});
+    const requestDayExists = repositoryRequestDay.findOne({ id: dia});
 
-    if(!userExists) {
+    if(!requestDayExists) {
       return res.sendStatus(409);
     }
 
-    const request = repository.create({ produto, dia, user });
+    const request = repository.create({ produto, dia, quantidade });
     await repository.save(request);
 
     return res.json(request);
@@ -68,15 +59,8 @@ class RequestController{
   }
   async edit(req: Request, res: Response) {
     const repository = getRepository(Requeste);
-    const repositoryUser = getRepository(User);
 
-    const { user} = req.body;
-
-    const userExists = repositoryUser.findOne({ id: user});
-
-    if(!userExists) {
-      return res.sendStatus(409);
-    }
+    const { produto, quantidade } = req.body;
 
     try {
       const request = await repository.findOne({where: {id: req.params.id}});
