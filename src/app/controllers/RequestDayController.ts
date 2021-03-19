@@ -34,13 +34,8 @@ class RequestController{
     const repositoryUser = getRepository(User);
     
 
-    const { dia, user} = req.body;
-
-    const userExists = repositoryUser.findOne({ id: user});
-
-    if(!userExists) {
-      return res.sendStatus(409);
-    }
+    const { dia } = req.body;
+    const user = req.userId;
 
     const request = repository.create({ dia, user });
     await repository.save(request);
