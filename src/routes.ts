@@ -13,7 +13,7 @@ import isRootMiddleware from './app/middlewares/isRootMiddleware';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', (request, res) => {
   return res.send("You are using an Api created by ottonSam")
 })
 
